@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="tutorials"/>
+    <context:property-placeholder location="pointsConfig.properties"/>
+
+    <!--Triangle points start-->
+    <bean id="zeroPoint" class="tutorials.Point">
+        <qualifier value="circleRelated"/>
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <bean id="pointA" class="tutorials.Point">
+        <property name="x" value="${pointA.X}"/>
+        <property name="y" value="${pointA.Y}"/>
+    </bean>
+
+    <bean id="pointB" class="tutorials.Point">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <bean id="pointC" class="tutorials.Point">
+        <property name="x" value="0"/>
+        <property name="y" value="20"/>
+    </bean>
+    <!--Triangle points end-->
+
+    <bean id="triangle" class="tutorials.Triangle">
+        <property name="pointA" ref="pointA"/>
+        <property name="pointB" ref="pointB"/>
+        <property name="pointC" ref="pointC"/>
+    </bean>
+
+    <!--Circle variables start-->
+    <bean id="radius" class="java.lang.Integer">
+        <constructor-arg value="16"/>
+    </bean>
+
+    <bean id="center" class="tutorials.Point">
+        <property name="x" value="14"/>
+        <property name="y" value="2"/>
+    </bean>
+    <!--Circle variables end-->
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
