@@ -38,7 +38,7 @@
                     </td>
                     <td><input type="submit" value="Submit"/></td>
                 </tr>
-                <tr>
+                <tr class="red">
                     <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name is invalid.</td>
                 </tr>
             </table>
