@@ -22,12 +22,7 @@ public class HelloController {
             return "index";
         }
 
-        return sayHello(helloForm.getName(), model);
-    }
-
-    @PostMapping("/hello")
-    public String sayHello(@RequestParam("name") String name, Model model) {
-        model.addAttribute("name", name);
-        return "hello";
+        model.addAttribute("name", helloForm.getName());
+        return "redirect:/topics";
     }
 }
