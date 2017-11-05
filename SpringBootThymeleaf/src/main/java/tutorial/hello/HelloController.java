@@ -1,24 +1,33 @@
 package tutorial.hello;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
+import javax.validation.Valid;
 
 @Controller
 public class HelloController {
-    @Value("${hello.message}")
-    private String message = "Hello World!";
-
-    @RequestMapping("/")
-    public String index() {
+    @GetMapping("/")
+    public String index(HelloForm helloForm) {
         return "index";
     }
 
-    @RequestMapping("/hello")
-    public String hello(Map<String, Object> model) {
-        model.put("message", this.message);
+    @PostMapping("/")
+    public String validate(@Valid HelloForm helloForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
+
+        return sayHello(helloForm.getName(), model);
+    }
+
+    @PostMapping("/hello")
+    public String sayHello(@RequestParam("name") String name, Model model) {
+        model.addAttribute("name", name);
         return "hello";
     }
 }

@@ -6,17 +6,18 @@
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css"/>
+    <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Spring Boot</a>
+            <a class="navbar-brand" href="/">Spring Boot</a>
         </div>
 
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
         </div>
@@ -24,16 +25,26 @@
 </nav>
 
 <div class="container">
-    <div class="starter-template">
-        <h1>Spring Boot Thymeleaf Example</h1>
-        <h2>
-            <!--/*@thymesVar id="message" type="java.lang.String"*/-->
-            <span th:text="'Message: ' + ${message}"></span>
-        </h2>
+    <h1>Spring Boot Thymeleaf Example</h1>
+
+    <div class="form">
+        <!--/*@thymesVar id="helloForm" type="tutorial.hello.HelloForm"*/-->
+        <form action="#" th:action="@{/}" th:object="${helloForm}" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">Enter your name: </label>
+                        <input id="name" type="text" th:field="*{name}"/>
+                    </td>
+                    <td><input type="submit" value="Submit"/></td>
+                </tr>
+                <tr>
+                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name is invalid.</td>
+                </tr>
+            </table>
+        </form>
     </div>
 </div>
-
-<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>
