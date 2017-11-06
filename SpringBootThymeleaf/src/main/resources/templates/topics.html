@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -35,35 +37,50 @@
 
 <div class="container">
     <h2>Topic List</h2>
-    <table class="table table-striped" style="border-collapse:collapse;">
-        <thead>
-        <tr>
-            <th>
-                <span></span>
-            </th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <!--/*@thymesVar id="topics" type="java.util.List"*/-->
-        <!--/*@thymesVar id="topic" type="tutorial.topic.Topic"*/-->
-        <tbody th:each="topic, iterStat : ${topics}">
-        <tr>
-            <td>
-                <button data-toggle="collapse" data-th-target="'#demo' + ${iterStat.count}"> +</button>
-            </td>
-            <td th:text="${topic.getId()}"></td>
-            <td th:text="${topic.getName()}"></td>
-            <td th:text="${topic.getDescription()}"></td>
-        </tr>
-        <tr>
-            <td colspan="6" class="hiddenRow">
-                <div class="accordian-body collapse" th:id="'demo' + ${iterStat.count}"> Lorem ipsum</div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!--/*@thymesVar id="topics" type="java.util.List"*/-->
+    <!--/*@thymesVar id="topic" type="tutorial.topic.Topic"-->
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default" th:each="topic : ${topics}">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       th:attr="href='#' + ${topic.getId()}"
+                       th:text="${topic.getName()}"></a>
+                </h4>
+            </div>
+            <div th:id="${topic.getId()}" class="panel-collapse collapse">
+                <div class="panel-body" th:text="${topic.getDescription()}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--<table class="table table-striped" style="border-collapse:collapse;">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>-->
+                <!--<span></span>-->
+            <!--</th>-->
+            <!--<th>ID</th>-->
+            <!--<th>Name</th>-->
+            <!--<th>Description</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr th:each="topic : ${topics}">-->
+            <!--<td>-->
+                <!--<button data-toggle="collapse" data-target="#demo"> +</button>-->
+            <!--</td>-->
+            <!--<td th:text="${topic.getId()}"></td>-->
+            <!--<td th:text="${topic.getName()}"></td>-->
+            <!--<td th:text="${topic.getDescription()}"></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td colspan="6" class="hiddenRow">-->
+                <!--<div class="accordian-body collapse" id="demo"> Lorem ipsum</div>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
 
 </div>
 
