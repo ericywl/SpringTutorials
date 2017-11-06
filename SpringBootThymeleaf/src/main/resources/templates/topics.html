@@ -36,52 +36,22 @@
 </div>
 
 <div class="container">
-    <h2>Topic List</h2>
-    <!--/*@thymesVar id="topics" type="java.util.List"*/-->
-    <!--/*@thymesVar id="topic" type="tutorial.topic.Topic"-->
+    <h3>Topic List</h3>
     <div class="panel-group" id="accordion">
+        <!--/*@thymesVar id="topics" type="tutorial.topic.Topic"*/-->
         <div class="panel panel-default" th:each="topic : ${topics}">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       th:attr="href='#' + ${topic.getId()}"
+                    <a data-toggle="collapse" data-parent="#accordion" th:attr="href='#' + ${topic.getId()}"
                        th:text="${topic.getName()}"></a>
                 </h4>
             </div>
+
             <div th:id="${topic.getId()}" class="panel-collapse collapse">
                 <div class="panel-body" th:text="${topic.getDescription()}"></div>
             </div>
         </div>
     </div>
-
-    <!--<table class="table table-striped" style="border-collapse:collapse;">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th>-->
-                <!--<span></span>-->
-            <!--</th>-->
-            <!--<th>ID</th>-->
-            <!--<th>Name</th>-->
-            <!--<th>Description</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr th:each="topic : ${topics}">-->
-            <!--<td>-->
-                <!--<button data-toggle="collapse" data-target="#demo"> +</button>-->
-            <!--</td>-->
-            <!--<td th:text="${topic.getId()}"></td>-->
-            <!--<td th:text="${topic.getName()}"></td>-->
-            <!--<td th:text="${topic.getDescription()}"></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td colspan="6" class="hiddenRow">-->
-                <!--<div class="accordian-body collapse" id="demo"> Lorem ipsum</div>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-
 </div>
 
 <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
