@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -30,14 +31,22 @@ public class TopicClient {
 //    }
 
     @GetMapping("/topics")
-    public String getTopics(Model model) {
-        Topic example = new Topic("python", "Python", "Python description");
-        Topic example2 = new Topic("java", "Java", "Java description");
-        List<Topic> topicList = new ArrayList<>();
-        topicList.add(example);
-        topicList.add(example2);
+    String showTopicList(Model model) {
+        TopicList topicList = new TopicList();
+        topicList.addTopic(new Topic("python", "Python", "Python description"));
+        topicList.addTopic(new Topic("java", "Java", "Java description"));
 
         model.addAttribute("topics", topicList);
-        return "topics";
+        return "topics :: resultsList";
+    }
+
+    @GetMapping("/topics/{id}")
+    String showTopic(Model model, @PathVariable String id) {
+        TopicList topicList = new TopicList();
+        topicList.addTopic(new Topic("python", "Python", "Python description"));
+        topicList.addTopic(new Topic("java", "Java", "Java description"));
+
+        model.addAttribute("topics", topicList.getTopic(id));
+        return "topics :: resultsList";
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="resultsList" th:unless=${#lists.isEmpty(topics)}" class="results-block">
+    <table>
+        <thead>
+            <tr>
+                <th>Topic ID</th>
+                <th>Topic Name</th>
+                <th>Topic Description</th>
+            </tr>
+
+            <!--/*@thymesVar id="topic" type="tutorial.topic.Topic"*/-->
+            <tr th:each="topic : ${topics}">
+                <td th:text="${topic.getId()}"></td>
+                <td th:text="${topic.getName()}"></td>
+                <td th:text="${topic.getDescription()}"></td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+</body>
+</html>
